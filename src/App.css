@@ -1,0 +1,81 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  background: var(--bg-primary);
+}
+
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--bg-primary);
+  border-bottom: 1px solid var(--border);
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+.app-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px 10px;
+}
+
+.app-header__brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.app-header__logo {
+  font-size: 22px;
+}
+
+.app-header__title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.3px;
+}
+
+.app-header__add {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.15s;
+}
+
+.app-header__add:active {
+  opacity: 0.8;
+}
+
+.app-feed {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 12px 24px;
+}
+
+.app-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 60px 20px;
+  color: var(--text-muted);
+}
+
+.app-empty__icon {
+  font-size: 48px;
+}
+
+.app-empty__text {
+  font-size: 15px;
+}
