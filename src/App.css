@@ -5,6 +5,7 @@
   background: var(--bg-primary);
 }
 
+/* ── Header ──────────────────────────────────────────────────────── */
 .app-header {
   position: sticky;
   top: 0;
@@ -15,66 +16,54 @@
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
-.app-header__bottom {
+/* Row base */
+.app-header__row {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 0 12px 12px;
-  gap: 8px;
+  width: 100%;
 }
 
-.app-header__inner {
-  display: flex;
-  align-items: center;
+/* Row 1: logo + buttons */
+.app-header__row--top {
   justify-content: space-between;
-  padding: 14px 16px 10px;
+  padding: 12px 16px 10px;
 }
 
+/* Row 2: theme toggle */
+.app-header__row--theme {
+  padding: 0 16px 10px;
+}
+
+/* Row 3: category filters */
+.app-header__row--filters {
+  padding: 0 0 10px;
+}
+
+/* Brand */
 .app-header__brand {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.app-header__logo {
-  font-size: 22px;
-}
+.app-header__logo { font-size: 22px; }
 
 .app-header__title {
   font-size: 20px;
   font-weight: 700;
   color: var(--text-primary);
   letter-spacing: -0.3px;
+  transition: color 0.3s ease;
 }
 
+/* Action buttons */
 .app-header__actions {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.app-header__refresh {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: var(--bg-card);
-  color: var(--text-secondary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: color 0.15s, opacity 0.15s;
-  border: 1px solid var(--border);
-}
-
-.app-header__refresh:disabled {
-  opacity: 0.5;
-}
-
-.app-header__refresh:not(:disabled):active {
-  color: var(--accent);
-}
-
-.app-header__manage {
+.app-header__icon-btn {
   width: 36px;
   height: 36px;
   border-radius: 50%;
@@ -84,29 +73,21 @@
   align-items: center;
   justify-content: center;
   border: 1px solid var(--border);
-  transition: color 0.15s;
+  transition: color 0.15s, opacity 0.15s, background 0.3s, border-color 0.3s;
 }
 
-.app-header__manage:active {
-  color: var(--text-primary);
-}
+.app-header__icon-btn:disabled { opacity: 0.5; }
+.app-header__icon-btn:not(:disabled):active { color: var(--accent); }
 
-.app-header__add {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
+.app-header__icon-btn--accent {
   background: var(--accent);
   color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: opacity 0.15s;
+  border-color: var(--accent);
 }
 
-.app-header__add:active {
-  opacity: 0.8;
-}
+.app-header__icon-btn--accent:active { opacity: 0.85; }
 
+/* ── Feed ────────────────────────────────────────────────────────── */
 .app-feed {
   flex: 1;
   display: flex;
@@ -125,13 +106,8 @@
   color: var(--text-muted);
 }
 
-.app-empty__icon {
-  font-size: 48px;
-}
-
-.app-empty__text {
-  font-size: 15px;
-}
+.app-empty__icon { font-size: 48px; }
+.app-empty__text { font-size: 15px; }
 
 /* Spinner */
 .app-spinner {
@@ -153,13 +129,8 @@
   transform-origin: center;
 }
 
-@keyframes rotate {
-  100% { transform: rotate(360deg); }
-}
-
-@keyframes spin {
-  100% { transform: rotate(360deg); }
-}
+@keyframes rotate { 100% { transform: rotate(360deg); } }
+@keyframes spin    { 100% { transform: rotate(360deg); } }
 
 .spin {
   animation: spin 0.8s linear infinite;
@@ -177,9 +148,7 @@
   text-align: center;
 }
 
-.app-error__icon {
-  font-size: 40px;
-}
+.app-error__icon { font-size: 40px; }
 
 .app-error__text {
   font-size: 16px;
@@ -205,6 +174,4 @@
   transition: opacity 0.15s;
 }
 
-.app-error__retry:active {
-  opacity: 0.8;
-}
+.app-error__retry:active { opacity: 0.8; }

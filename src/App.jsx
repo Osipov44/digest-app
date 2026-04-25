@@ -101,14 +101,15 @@ export default function App() {
   return (
     <div className="app">
       <header className="app-header">
-        <div className="app-header__inner">
+        {/* Row 1: brand + action buttons */}
+        <div className="app-header__row app-header__row--top">
           <div className="app-header__brand">
             <span className="app-header__logo">📡</span>
             <h1 className="app-header__title">Digest</h1>
           </div>
           <div className="app-header__actions">
             <button
-              className="app-header__refresh"
+              className="app-header__icon-btn"
               onClick={() => fetchPosts()}
               disabled={loading}
               aria-label="Обновить"
@@ -121,7 +122,7 @@ export default function App() {
               </svg>
             </button>
             <button
-              className="app-header__manage"
+              className="app-header__icon-btn"
               onClick={() => setShowManage(true)}
               aria-label="Управление каналами"
             >
@@ -136,7 +137,7 @@ export default function App() {
               </svg>
             </button>
             <button
-              className="app-header__add"
+              className="app-header__icon-btn app-header__icon-btn--accent"
               onClick={() => setShowAddChannel(true)}
               aria-label="Добавить канал"
             >
@@ -149,13 +150,18 @@ export default function App() {
           </div>
         </div>
 
-        <div className="app-header__bottom">
+        {/* Row 2: theme toggle */}
+        <div className="app-header__row app-header__row--theme">
+          <ThemeToggle mode={themeMode} onChange={setThemeMode} />
+        </div>
+
+        {/* Row 3: category filters */}
+        <div className="app-header__row app-header__row--filters">
           <CategoryFilter
             categories={CATEGORIES}
             active={activeCategory}
             onChange={setActiveCategory}
           />
-          <ThemeToggle mode={themeMode} onChange={setThemeMode} />
         </div>
       </header>
 
