@@ -4,6 +4,13 @@ export const CATEGORIES = [
   { id: 'economics', label: 'Экономика' },
 ]
 
+export const SENTIMENTS = [
+  { id: 'all',      label: 'Все' },
+  { id: 'positive', label: '😊 Позитивные' },
+  { id: 'negative', label: '😞 Негативные' },
+  { id: 'neutral',  label: '😐 Нейтральные' },
+]
+
 export const CHANNELS = [
   { id: 1, username: 'rbc_news', name: 'РБК', category: 'economics', avatar: '📈' },
   { id: 2, username: 'meduzaio', name: 'Meduza', category: 'politics', avatar: '📰' },

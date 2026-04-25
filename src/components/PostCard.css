@@ -153,12 +153,23 @@
   margin-top: 2px;
 }
 
+.post-card__footer-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .post-card__views {
   display: flex;
   align-items: center;
   gap: 5px;
   color: var(--text-muted);
   font-size: 12px;
+}
+
+.post-card__sentiment {
+  font-size: 15px;
+  line-height: 1;
 }
 
 .post-card__open {

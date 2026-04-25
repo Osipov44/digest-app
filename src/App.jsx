@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo, useCallback } from 'react'
 import { useTelegram } from './hooks/useTelegram'
 import { useLocalStorage } from './hooks/useLocalStorage'
 import { useTheme } from './hooks/useTheme'
-import { CATEGORIES } from './data/testData'
+import { CATEGORIES, SENTIMENTS } from './data/testData'
 import PostCard from './components/PostCard'
 import CategoryFilter from './components/CategoryFilter'
 import AddChannel from './components/AddChannel'
@@ -43,7 +43,8 @@ export default function App() {
   const [posts, setPosts]             = useState([])
   const [loading, setLoading]         = useState(true)
   const [error, setError]             = useState(null)
-  const [activeCategory, setActiveCategory] = useState('all')
+  const [activeCategory,  setActiveCategory]  = useState('all')
+  const [activeSentiment, setActiveSentiment] = useState('all')
   const [showAddChannel, setShowAddChannel] = useState(false)
   const [showManage, setShowManage]         = useState(false)
 
@@ -93,10 +94,11 @@ export default function App() {
   }
 
   const filteredPosts = useMemo(() => {
-    const sorted = [...posts].sort((a, b) => b.time - a.time)
-    if (activeCategory === 'all') return sorted
-    return sorted.filter(p => p.category === activeCategory)
-  }, [posts, activeCategory])
+    let result = [...posts].sort((a, b) => b.time - a.time)
+    if (activeCategory  !== 'all') result = result.filter(p => p.category  === activeCategory)
+    if (activeSentiment !== 'all') result = result.filter(p => p.sentiment === activeSentiment)
+    return result
+  }, [posts, activeCategory, activeSentiment])
 
   return (
     <div className="app">
@@ -161,6 +163,15 @@ export default function App() {
             categories={CATEGORIES}
             active={activeCategory}
             onChange={setActiveCategory}
+          />
+        </div>
+
+        {/* Row 4: sentiment filters */}
+        <div className="app-header__row app-header__row--filters">
+          <CategoryFilter
+            categories={SENTIMENTS}
+            active={activeSentiment}
+            onChange={setActiveSentiment}
           />
         </div>
       </header>

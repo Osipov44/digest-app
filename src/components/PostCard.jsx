@@ -4,7 +4,8 @@ import Lightbox from './Lightbox'
 import './PostCard.css'
 
 const API_BASE = 'https://web-production-69775.up.railway.app'
-const CATEGORY_LABEL = { politics: 'Политика', economics: 'Экономика' }
+const CATEGORY_LABEL  = { politics: 'Политика', economics: 'Экономика' }
+const SENTIMENT_ICON  = { positive: '😊', negative: '😞', neutral: '😐' }
 
 function ChannelAvatar({ username, fallback }) {
   const [failed, setFailed] = useState(false)
@@ -66,8 +67,9 @@ function PostMedia({ username, message_id, media_type }) {
 }
 
 export default function PostCard({ post }) {
-  const { message_id, channel, avatar, username, time, text, views, category, media_type } = post
+  const { message_id, channel, avatar, username, time, text, views, category, media_type, sentiment } = post
   const categoryLabel = CATEGORY_LABEL[category]
+  const sentimentIcon = SENTIMENT_ICON[sentiment]
   const hasMedia = media_type === 'photo' || media_type === 'video'
 
   return (
@@ -99,14 +101,21 @@ export default function PostCard({ post }) {
       {text && <p className="post-card__text">{text}</p>}
 
       <div className="post-card__footer">
-        <span className="post-card__views">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" strokeWidth="2">
-            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-            <circle cx="12" cy="12" r="3"/>
-          </svg>
-          {formatViews(views)}
-        </span>
+        <div className="post-card__footer-left">
+          <span className="post-card__views">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" strokeWidth="2">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+            {formatViews(views)}
+          </span>
+          {sentimentIcon && (
+            <span className={`post-card__sentiment post-card__sentiment--${sentiment}`}>
+              {sentimentIcon}
+            </span>
+          )}
+        </div>
         {media_type !== 'video' && (
           <a
             className="post-card__open"
