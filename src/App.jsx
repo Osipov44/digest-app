@@ -12,6 +12,7 @@ const API_BASE = 'https://web-production-69775.up.railway.app'
 const DEFAULT_CHANNEL_META = {
   rbc_news:   { category: 'economics', avatar: '📈', name: 'РБК' },
   bbcrussian: { category: 'politics',  avatar: '📰', name: 'BBC Русская служба' },
+  rian_ru:    { category: 'politics',  avatar: '🗞️', name: 'РИА Новости' },
 }
 
 function normalizePost(raw, channelMeta) {
