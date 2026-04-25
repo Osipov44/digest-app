@@ -32,6 +32,7 @@ function normalizePost(raw, channelMeta) {
     text:       raw.text,
     views:      raw.views ?? 0,
     media_type: raw.media_type ?? null,
+    sentiment:  raw.sentiment  ?? 'neutral',
   }
 }
 
