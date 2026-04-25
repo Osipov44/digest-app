@@ -95,18 +95,26 @@
   color: var(--accent);
 }
 
-.post-card__image-wrap {
+.post-card__media-wrap {
   border-radius: var(--radius-sm);
   overflow: hidden;
   background: var(--bg-secondary);
-  max-height: 320px;
 }
 
 .post-card__image {
   width: 100%;
-  max-height: 320px;
-  object-fit: cover;
+  max-height: 400px;
+  object-fit: contain;
   display: block;
+  background: var(--bg-secondary);
+}
+
+.post-card__video {
+  width: 100%;
+  max-height: 400px;
+  display: block;
+  background: #000;
+  border-radius: var(--radius-sm);
 }
 
 .post-card__text {

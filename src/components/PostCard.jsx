@@ -23,10 +23,42 @@ function ChannelAvatar({ username, fallback }) {
   )
 }
 
+function PostMedia({ username, message_id, media_type }) {
+  const src = `${API_BASE}/media?channel=${username}&message_id=${message_id}`
+
+  if (media_type === 'photo') {
+    return (
+      <div className="post-card__media-wrap">
+        <img
+          className="post-card__image"
+          src={src}
+          alt="post media"
+          loading="lazy"
+        />
+      </div>
+    )
+  }
+
+  if (media_type === 'video') {
+    return (
+      <div className="post-card__media-wrap">
+        <video
+          className="post-card__video"
+          src={src}
+          controls
+          preload="metadata"
+          playsInline
+        />
+      </div>
+    )
+  }
+
+  return null
+}
+
 export default function PostCard({ post }) {
   const { message_id, channel, avatar, username, time, text, views, category, media_type } = post
   const categoryLabel = CATEGORY_LABEL[category]
-  const hasImage = media_type === 'photo'
 
   return (
     <article className="post-card">
@@ -46,15 +78,8 @@ export default function PostCard({ post }) {
         </div>
       </div>
 
-      {hasImage && (
-        <div className="post-card__image-wrap">
-          <img
-            className="post-card__image"
-            src={`${API_BASE}/media?channel=${username}&message_id=${message_id}`}
-            alt="media"
-            loading="lazy"
-          />
-        </div>
+      {(media_type === 'photo' || media_type === 'video') && (
+        <PostMedia username={username} message_id={message_id} media_type={media_type} />
       )}
 
       {text && <p className="post-card__text">{text}</p>}
