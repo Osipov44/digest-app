@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { formatTime, formatViews } from '../utils/formatTime'
+import Lightbox from './Lightbox'
 import './PostCard.css'
 
 const API_BASE = 'https://web-production-69775.up.railway.app'
@@ -22,7 +23,8 @@ function ChannelAvatar({ username, fallback }) {
 }
 
 function PostMedia({ username, message_id, media_type }) {
-  const [failed, setFailed] = useState(false)
+  const [failed, setFailed]     = useState(false)
+  const [lightbox, setLightbox] = useState(false)
 
   if (media_type === 'video') {
     return (
@@ -42,16 +44,21 @@ function PostMedia({ username, message_id, media_type }) {
 
   if (media_type === 'photo') {
     if (failed) return null
+    const src = `${API_BASE}/media?channel=${username}&message_id=${message_id}`
     return (
-      <div className="post-card__media-wrap">
-        <img
-          className="post-card__image"
-          src={`${API_BASE}/media?channel=${username}&message_id=${message_id}`}
-          alt=""
-          loading="lazy"
-          onError={() => setFailed(true)}
-        />
-      </div>
+      <>
+        <div className="post-card__media-wrap">
+          <img
+            className="post-card__image post-card__image--clickable"
+            src={src}
+            alt=""
+            loading="lazy"
+            onError={() => setFailed(true)}
+            onClick={() => setLightbox(true)}
+          />
+        </div>
+        {lightbox && <Lightbox src={src} alt="" onClose={() => setLightbox(false)} />}
+      </>
     )
   }
 
