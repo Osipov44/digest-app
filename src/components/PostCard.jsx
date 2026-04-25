@@ -3,37 +3,38 @@ import { formatTime, formatViews } from '../utils/formatTime'
 import './PostCard.css'
 
 const API_BASE = 'https://web-production-69775.up.railway.app'
-
 const CATEGORY_LABEL = { politics: 'Политика', economics: 'Экономика' }
 
 function ChannelAvatar({ username, fallback }) {
-  const [useFallback, setUseFallback] = useState(false)
+  const [failed, setFailed] = useState(false)
 
-  if (useFallback) {
+  if (failed) {
     return <div className="post-card__avatar post-card__avatar--emoji">{fallback}</div>
   }
-
   return (
     <img
       className="post-card__avatar post-card__avatar--img"
       src={`${API_BASE}/channel-photo?username=${username}`}
       alt={username}
-      onError={() => setUseFallback(true)}
+      onError={() => setFailed(true)}
     />
   )
 }
 
 function PostMedia({ username, message_id, media_type }) {
-  const src = `${API_BASE}/media?channel=${username}&message_id=${message_id}`
+  const [failed, setFailed] = useState(false)
+
+  if (failed) return null
 
   if (media_type === 'photo') {
     return (
       <div className="post-card__media-wrap">
         <img
           className="post-card__image"
-          src={src}
-          alt="post media"
+          src={`${API_BASE}/media?channel=${username}&message_id=${message_id}`}
+          alt=""
           loading="lazy"
+          onError={() => setFailed(true)}
         />
       </div>
     )
@@ -44,10 +45,11 @@ function PostMedia({ username, message_id, media_type }) {
       <div className="post-card__media-wrap">
         <video
           className="post-card__video"
-          src={src}
+          src={`${API_BASE}/video?channel=${username}&message_id=${message_id}`}
           controls
           preload="metadata"
           playsInline
+          onError={() => setFailed(true)}
         />
       </div>
     )
@@ -59,6 +61,7 @@ function PostMedia({ username, message_id, media_type }) {
 export default function PostCard({ post }) {
   const { message_id, channel, avatar, username, time, text, views, category, media_type } = post
   const categoryLabel = CATEGORY_LABEL[category]
+  const hasMedia = media_type === 'photo' || media_type === 'video'
 
   return (
     <article className="post-card">
@@ -78,8 +81,12 @@ export default function PostCard({ post }) {
         </div>
       </div>
 
-      {(media_type === 'photo' || media_type === 'video') && (
-        <PostMedia username={username} message_id={message_id} media_type={media_type} />
+      {hasMedia && (
+        <PostMedia
+          username={username}
+          message_id={message_id}
+          media_type={media_type}
+        />
       )}
 
       {text && <p className="post-card__text">{text}</p>}
@@ -88,17 +95,17 @@ export default function PostCard({ post }) {
         <span className="post-card__views">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" strokeWidth="2">
-            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-            <circle cx="12" cy="12" r="3" />
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+            <circle cx="12" cy="12" r="3"/>
           </svg>
           {formatViews(views)}
         </span>
         <button className="post-card__open" aria-label="Открыть в Telegram">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" strokeWidth="2">
-            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-            <polyline points="15 3 21 3 21 9" />
-            <line x1="10" y1="14" x2="21" y2="3" />
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+            <polyline points="15 3 21 3 21 9"/>
+            <line x1="10" y1="14" x2="21" y2="3"/>
           </svg>
           Открыть
         </button>
