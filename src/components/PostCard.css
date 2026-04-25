@@ -106,6 +106,12 @@
   font-size: 13px;
   font-weight: 500;
   width: fit-content;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+
+.post-card__video-badge:active {
+  background: rgba(46, 166, 255, 0.25);
 }
 
 .post-card__media-wrap {
