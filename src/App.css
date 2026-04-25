@@ -38,6 +38,50 @@
   letter-spacing: -0.3px;
 }
 
+.app-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.app-header__refresh {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s, opacity 0.15s;
+  border: 1px solid var(--border);
+}
+
+.app-header__refresh:disabled {
+  opacity: 0.5;
+}
+
+.app-header__refresh:not(:disabled):active {
+  color: var(--accent);
+}
+
+.app-header__manage {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  transition: color 0.15s;
+}
+
+.app-header__manage:active {
+  color: var(--text-primary);
+}
+
 .app-header__add {
   width: 36px;
   height: 36px;
@@ -78,4 +122,80 @@
 
 .app-empty__text {
   font-size: 15px;
+}
+
+/* Spinner */
+.app-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 60px 20px;
+}
+
+.app-spinner__text {
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.spinner {
+  animation: rotate 1s linear infinite;
+  transform-origin: center;
+}
+
+@keyframes rotate {
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
+
+.spin {
+  animation: spin 0.8s linear infinite;
+  transform-origin: center;
+}
+
+/* Error state */
+.app-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.app-error__icon {
+  font-size: 40px;
+}
+
+.app-error__text {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.app-error__detail {
+  font-size: 12px;
+  color: var(--text-muted);
+  max-width: 280px;
+  word-break: break-word;
+}
+
+.app-error__retry {
+  margin-top: 8px;
+  padding: 10px 24px;
+  border-radius: var(--radius-sm);
+  background: var(--accent);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  transition: opacity 0.15s;
+}
+
+.app-error__retry:active {
+  opacity: 0.8;
 }
