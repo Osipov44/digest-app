@@ -24,9 +24,19 @@ function ChannelAvatar({ username, fallback }) {
 function PostMedia({ username, message_id, media_type }) {
   const [failed, setFailed] = useState(false)
 
-  if (failed) return null
+  if (media_type === 'video') {
+    return (
+      <div className="post-card__video-badge">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+          <polygon points="5 3 19 12 5 21 5 3"/>
+        </svg>
+        Тут видео
+      </div>
+    )
+  }
 
   if (media_type === 'photo') {
+    if (failed) return null
     return (
       <div className="post-card__media-wrap">
         <img
@@ -34,21 +44,6 @@ function PostMedia({ username, message_id, media_type }) {
           src={`${API_BASE}/media?channel=${username}&message_id=${message_id}`}
           alt=""
           loading="lazy"
-          onError={() => setFailed(true)}
-        />
-      </div>
-    )
-  }
-
-  if (media_type === 'video') {
-    return (
-      <div className="post-card__media-wrap">
-        <video
-          className="post-card__video"
-          src={`${API_BASE}/video?channel=${username}&message_id=${message_id}`}
-          controls
-          preload="metadata"
-          playsInline
           onError={() => setFailed(true)}
         />
       </div>
@@ -100,15 +95,21 @@ export default function PostCard({ post }) {
           </svg>
           {formatViews(views)}
         </span>
-        <button className="post-card__open" aria-label="Открыть в Telegram">
+        <a
+          className="post-card__open"
+          href={`https://t.me/${username}/${message_id}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Открыть в Telegram"
+        >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" strokeWidth="2">
             <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
             <polyline points="15 3 21 3 21 9"/>
             <line x1="10" y1="14" x2="21" y2="3"/>
           </svg>
-          Открыть
-        </button>
+          Источник
+        </a>
       </div>
     </article>
   )

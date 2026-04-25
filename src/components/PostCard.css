@@ -95,6 +95,19 @@
   color: var(--accent);
 }
 
+.post-card__video-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  background: rgba(46, 166, 255, 0.12);
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 500;
+  width: fit-content;
+}
+
 .post-card__media-wrap {
   border-radius: var(--radius-sm);
   overflow: hidden;
