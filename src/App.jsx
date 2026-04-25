@@ -20,14 +20,16 @@ function normalizePost(raw, channelMeta) {
   const username = raw.channel_username
   const meta = channelMeta[username] ?? {}
   return {
-    id:       `${username}_${raw.id}`,
-    channel:  raw.channel_name || meta.name || username,
+    id:         `${username}_${raw.id}`,
+    message_id: raw.id,
+    channel:    raw.channel_name || meta.name || username,
     username,
-    category: meta.category ?? null,
-    avatar:   meta.avatar ?? '📰',
-    time:     new Date(raw.date),
-    text:     raw.text,
-    views:    raw.views ?? 0,
+    category:   meta.category ?? null,
+    avatar:     meta.avatar ?? '📰',
+    time:       new Date(raw.date),
+    text:       raw.text,
+    views:      raw.views ?? 0,
+    media_type: raw.media_type ?? null,
   }
 }
 
