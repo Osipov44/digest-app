@@ -1,11 +1,13 @@
 import { useState, useEffect, useMemo, useCallback } from 'react'
 import { useTelegram } from './hooks/useTelegram'
 import { useLocalStorage } from './hooks/useLocalStorage'
+import { useTheme } from './hooks/useTheme'
 import { CATEGORIES } from './data/testData'
 import PostCard from './components/PostCard'
 import CategoryFilter from './components/CategoryFilter'
 import AddChannel from './components/AddChannel'
 import ManageChannels from './components/ManageChannels'
+import ThemeToggle from './components/ThemeToggle'
 import './App.css'
 
 const API_BASE = 'https://web-production-69775.up.railway.app'
@@ -35,6 +37,7 @@ function normalizePost(raw, channelMeta) {
 
 export default function App() {
   useTelegram()
+  const { mode: themeMode, setMode: setThemeMode } = useTheme()
 
   const [channelMeta, setChannelMeta] = useLocalStorage('digest:channels', DEFAULT_CHANNEL_META)
   const [posts, setPosts]             = useState([])
@@ -146,11 +149,14 @@ export default function App() {
           </div>
         </div>
 
-        <CategoryFilter
-          categories={CATEGORIES}
-          active={activeCategory}
-          onChange={setActiveCategory}
-        />
+        <div className="app-header__bottom">
+          <CategoryFilter
+            categories={CATEGORIES}
+            active={activeCategory}
+            onChange={setActiveCategory}
+          />
+          <ThemeToggle mode={themeMode} onChange={setThemeMode} />
+        </div>
       </header>
 
       <main className="app-feed">

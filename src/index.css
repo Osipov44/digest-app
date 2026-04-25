@@ -4,20 +4,40 @@
   padding: 0;
 }
 
-:root {
-  --bg-primary: #17212b;
+/* ── Dark theme (default) ───────────────────────────────────────── */
+:root,
+[data-theme="dark"] {
+  --bg-primary:   #17212b;
   --bg-secondary: #1e2c3a;
-  --bg-card: #242f3d;
-  --bg-input: #1c2b3a;
-  --accent: #2ea6ff;
+  --bg-card:      #242f3d;
+  --bg-input:     #1c2b3a;
+  --accent:       #2ea6ff;
   --accent-hover: #5ab7ff;
-  --text-primary: #e8f0f7;
+  --text-primary:   #e8f0f7;
   --text-secondary: #8ea5b4;
-  --text-muted: #5a7384;
-  --border: #2d3f50;
-  --danger: #e05c5c;
+  --text-muted:     #5a7384;
+  --border:  #2d3f50;
+  --danger:  #e05c5c;
   --success: #4caf7d;
-  --radius: 12px;
+  --radius:    12px;
+  --radius-sm: 8px;
+}
+
+/* ── Light theme ────────────────────────────────────────────────── */
+[data-theme="light"] {
+  --bg-primary:   #f0f2f5;
+  --bg-secondary: #ffffff;
+  --bg-card:      #ffffff;
+  --bg-input:     #f0f2f5;
+  --accent:       #2ea6ff;
+  --accent-hover: #1a96ef;
+  --text-primary:   #0d1117;
+  --text-secondary: #4a5568;
+  --text-muted:     #8a9ab0;
+  --border:  #dde3ea;
+  --danger:  #e05c5c;
+  --success: #4caf7d;
+  --radius:    12px;
   --radius-sm: 8px;
 }
 
@@ -29,6 +49,7 @@ html, body, #root {
 body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   font-size: 14px;
   line-height: 1.5;

@@ -1,10 +1,10 @@
 .category-filter {
   display: flex;
   gap: 8px;
-  padding: 0 16px 12px;
   overflow-x: auto;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
+  flex: 1;
 }
 
 .category-filter::-webkit-scrollbar {
