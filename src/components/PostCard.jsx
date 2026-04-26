@@ -7,6 +7,25 @@ const API_BASE = 'https://web-production-69775.up.railway.app'
 const CATEGORY_LABEL  = { politics: 'Политика', economics: 'Экономика' }
 const SENTIMENT_ICON  = { positive: '😊', negative: '😞', neutral: '😐' }
 
+// Parses Telegram markdown: [text](url) and **bold**
+function parseMarkdown(text) {
+  const parts = []
+  // Split by [text](url) or **text**
+  const re = /\[([^\]]+)\]\((https?:\/\/[^)]+)\)|\*\*([^*]+)\*\*/g
+  let last = 0, match, key = 0
+  while ((match = re.exec(text)) !== null) {
+    if (match.index > last) parts.push(text.slice(last, match.index))
+    if (match[1]) {
+      parts.push(<a key={key++} href={match[2]} target="_blank" rel="noopener noreferrer" className="post-card__link">{match[1]}</a>)
+    } else {
+      parts.push(<strong key={key++}>{match[3]}</strong>)
+    }
+    last = match.index + match[0].length
+  }
+  if (last < text.length) parts.push(text.slice(last))
+  return parts
+}
+
 function ChannelAvatar({ username, fallback }) {
   const [failed, setFailed] = useState(false)
 
@@ -98,7 +117,7 @@ export default function PostCard({ post }) {
         />
       )}
 
-      {text && <p className="post-card__text">{text}</p>}
+      {text && <p className="post-card__text">{parseMarkdown(text)}</p>}
 
       <div className="post-card__footer">
         <div className="post-card__footer-left">
